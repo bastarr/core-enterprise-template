@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Brian Starr",
+    "classifications": [ "Web", "WebAPI" ],
+    "identity": "Enterprise.WebAPI.CSharp",
+    "name": "Enterprise Core WebAPI",
+    "shortName": "enterprisewebapi",
+    "symbols": {
+      "namespace": {
+        "type": "parameter",
+        "replaces": "Acme",
+        "defaultValue": "Acme"
+      },
+      "filePrefix": {
+        "type": "parameter",
+        "dataType": "string",
+        "fileRename": "Acme",
+        "defaultValue": "Acme"
+      }
+    }
+  }

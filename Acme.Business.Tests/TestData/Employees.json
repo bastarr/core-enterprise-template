@@ -1,0 +1,30 @@
+[
+    {
+      "EmployeeId": 1,
+      "FirstName": "Uncle",
+      "LastName": "Bob",
+      "DateOfBirth": "1969-09-29 00:00:00",
+      "PhoneNumber": "222-333-4444",
+      "Email": "uncle.bob@faxmail.com",
+      "BusinessUnitId": 1,
+      "BusinessUnit": {
+        "BusinessUnitId": 1,
+        "Name": "Cincinnati",
+        "City": "Cincinnati"
+      }
+    },
+  {
+    "EmployeeId": 2,
+    "FirstName": "Uncle",
+    "LastName": "Bob",
+    "DateOfBirth": "1969-09-29 00:00:00",
+    "PhoneNumber": "222-333-4444",
+    "Email": "uncle.bob@faxmail.com",
+    "BusinessUnitId": 1,
+    "BusinessUnit": {
+      "BusinessUnitId": 1,
+      "Name": "Cincinnati",
+      "City": "Cincinnati"
+    }
+  }
+]
