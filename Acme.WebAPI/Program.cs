@@ -23,6 +23,7 @@ namespace Acme.WebAPI
                 {
                     cfg.SetBasePath($"{Directory.GetCurrentDirectory()}");
                     cfg.AddJsonFile("appsettings.json");
+                    cfg.AddUserSecrets<Program>();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
