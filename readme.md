@@ -40,6 +40,7 @@ Visual Studio:
 * type: <i>Update-Database</i>
 
 DotNetCore CLI:  
+* The migrations SDK still depends on NETCore 2.0.  If you don't have NETCore 2.0 install, you need to install the runtime https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.0.9-macos-x64-installer
 * Command/Terminal prompt, navigate to the [ProjectName].DataAccess project
 * type: <i>dotnet ef migrations add initial --context [DbContextName]</i>
 * type: <i>dotnet ef database update --context [DbContextName]</i>
