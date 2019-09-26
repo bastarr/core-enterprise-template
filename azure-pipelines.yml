@@ -18,7 +18,9 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '3.0.100'
+    version: '3.0.100-rc1-014190'
+    includePreviewVersions: true
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
