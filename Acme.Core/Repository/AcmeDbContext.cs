@@ -44,10 +44,13 @@ namespace Acme.Core.Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddUserSecrets<AcmeDbContext>()
-                .Build();
-            optionsBuilder.UseSqlServer(configuration["DbConnectionString"], b => b.MigrationsAssembly("Acme.DataAccess"));
+            if(!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .AddUserSecrets<AcmeDbContext>()
+                    .Build();
+                optionsBuilder.UseSqlServer(configuration["DbConnectionString"], b => b.MigrationsAssembly("Acme.DataAccess"));
+            }
             base.OnConfiguring(optionsBuilder);
         }
     }

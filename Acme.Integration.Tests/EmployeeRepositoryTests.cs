@@ -7,6 +7,7 @@ using Acme.Core.Repository;
 using Acme.DataAccess;
 using Acme.DataAcess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -24,7 +25,15 @@ namespace Acme.Integration.Tests
         public void Setup()
         {
             var services = new ServiceCollection();
-            services.AddDbContext<AcmeDbContext>(opts => opts.UseSqlServer(DbConnection));
+            /* note: use existing database
+                services.AddDbContext<AcmeDbContext>(opts => opts.UseSqlServer(DbConnection));
+                var options = new DbContextOptionsBuilder<AcmeDbContext>()
+                    .UseInMemoryDatabase(databaseName: "integration_tests_db")
+                    .Options;
+            */
+
+            /* use in memory database */
+            services.AddDbContext<AcmeDbContext>(opts => opts.UseInMemoryDatabase(databaseName: "tests-db"));
             services.AddSingleton<IRepository<Employee>, EmployeeRepository>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IContext, AcmeDbContextExt>();
@@ -33,6 +42,9 @@ namespace Acme.Integration.Tests
 
             _uow = _serviceProvider.GetService<IUnitOfWork>();
             _repo = _uow.GetRepository<Employee>();
+
+            /* make sure the database seeding takes place */
+            ((AcmeDbContext)_uow.Context).Database.EnsureCreated();
         }
 
         [Test]
@@ -101,7 +113,7 @@ namespace Acme.Integration.Tests
                 BusinessUnitId = 1
             };
 
-            await _repo.AddAsync(expected);
+            _repo.Add(expected);
             await _uow.SaveAsync();
 
             return expected;
