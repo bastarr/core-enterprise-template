@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  database:
+    container_name: insight-database
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      - SA_PASSWORD=Passw0rd1@
+      - ACCEPT_EULA=Y
+    #restart: always
+    ports:
+      - '1433:1433'
+    networks: 
+      insight-net:        
+        ipv4_address: 172.19.0.2  
+  webapi:
+    container_name: insight-webapi
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    image: webapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - USER_SECRETS_ID=aa687663-a66c-4a22-8eb9-cbdf01dfbb1e
+    ports:
+      - '5001:80'
+    depends_on:
+      - database
+    networks: 
+      insight-net:        
+        ipv4_address: 172.19.0.3  
+    volumes:
+      #- $APPDATA/Microsoft/UserSecrets/$USER_SECRETS_ID:/root/.microsoft/usersecrets/$USER_SECRETS_ID
+      - $HOME/.microsoft/usersecrets/$USER_SECRETS_ID:/root/.microsoft/usersecrets/$USER_SECRETS_ID 
+networks:
+  insight-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/24
